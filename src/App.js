@@ -6,7 +6,13 @@ const randint = (n) => {
 }
 
 const App = () => {
-  const c = 10**parseInt(window.URL.searchParams.get("digits"));
+  let c = 100;
+  let s = window.location.href.split('digits');
+  console.log(s);
+  if (s.length === 2) {
+    c = 10**parseInt(s[1].substring(1));
+  }
+  console.log(c);
   const handle = (e) => {
     if (e.key === 'Enter') {
       const answer = parseInt(e.target.value);
@@ -26,7 +32,7 @@ const App = () => {
     }
   }
 
-  const [q, setQ] = useState([randint(100), randint(100)]);
+  const [q, setQ] = useState([randint(c), randint(c)]);
   const [color, setColor] = useState('white');
   const [count, setCount] = useState(parseInt(localStorage.getItem('score')) || 0);
   return (
