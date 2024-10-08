@@ -6,12 +6,13 @@ const randint = (n) => {
 }
 
 const App = () => {
+  const c = 10**parseInt(window.URL.searchParams.get("digits"));
   const handle = (e) => {
     if (e.key === 'Enter') {
       const answer = parseInt(e.target.value);
       if (answer === q[0]*q[0]) {
         e.target.value = '';
-        let x = randint(100);
+        let x = randint(c);
         setQ([x,x]);
         setColor('green');
         setCount(count+1);
