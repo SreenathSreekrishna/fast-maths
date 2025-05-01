@@ -7,19 +7,25 @@ const randint = (n) => {
 
 const App = () => {
   let c = 100;
+  let mult = false;
   let s = window.location.href.split('digits');
+  let mode = window.location.href.split('mode');
   console.log(s);
   if (s.length === 2) {
     c = 10**parseInt(s[1].substring(1));
+  }
+  if (mode.length === 2) {
+    mult = true;
   }
   console.log(c);
   const handle = (e) => {
     if (e.key === 'Enter') {
       const answer = parseInt(e.target.value);
-      if (answer === q[0]*q[0]) {
+      if ((answer === q[0]*q[0] && !mult) || (answer === q[0]*q[1] && mult)) {
         e.target.value = '';
         let x = randint(c);
-        setQ([x,x]);
+        let y = randint(c);
+        setQ([x,y]);
         setColor('green');
         setCount(count+1);
         localStorage.setItem('score', count+1);
@@ -38,7 +44,7 @@ const App = () => {
   return (
     <>
     <main>
-      <div className='question' style={{color: color}}>{q[0]}</div>
+      <div className='question' style={{color: color}}>{mult ? `${q[0]}×${q[1]}` : q[0]}</div>
       <input type='number' className='answer' onKeyPress={handle} />
     </main>
     <div className='counter'>{count}</div>
